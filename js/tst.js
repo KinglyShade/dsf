@@ -145,11 +145,11 @@ class PLB {
             return pn;
         }else{
                 await this.guardarEnBaseDeDatos(texto, 'No tengo respuesta en este momento.');
-           const f = Math.floor(Math.random() * 2 + 1)
-           if(f ==="1"){
+           const fs = Math.floor(Math.random() * 2 + 1)
+           if(fs ==="1"){
             return `${this.experr[Math.floor(Math.random() * this.experr.length + 1)]}. ${this.expresionesTimidas[Math.floor(Math.random() * this.expresionesTimidas.length)]}`;        }
            
-           if(f ==="2"){
+           if(fs ==="2"){
             return `${this.cnf[Math.floor(Math.random() * this.cnf.length + 1)]}. ${this.expresionesTimidas[Math.floor(Math.random() * this.expresionesTimidas.length)]}`;        }
            }
     }

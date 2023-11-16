@@ -144,7 +144,7 @@ class PLB {
         if (pn) {
             return pn;
         }else{
-                await this.guardarEnBaseDeDatos(`${texto}`, 'No tengo respuesta en este momento.');
+                await this.guardarEnBaseDeDatos(texto, `${texto}`);
            const fs = Math.floor(Math.random() * 2 + 1)
            if(fs =="1"){
             return `${this.experr[Math.floor(Math.random() * this.experr.length + 1)]}. ${this.expresionesTimidas[Math.floor(Math.random() * this.expresionesTimidas.length)]}`;        }

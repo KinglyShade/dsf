@@ -148,11 +148,12 @@ class PLB {
            const f = Math.floor(Math.random() * 2 + 1)
            if(f ==="1"){
             return `${this.experr[Math.floor(Math.random() * this.experr.length + 1)]}. ${this.expresionesTimidas[Math.floor(Math.random() * this.expresionesTimidas.length)]}`;        }
-           }
+           
            if(f ==="2"){
             return `${this.cnf[Math.floor(Math.random() * this.cnf.length + 1)]}. ${this.expresionesTimidas[Math.floor(Math.random() * this.expresionesTimidas.length)]}`;        }
            }
     }
+}
 
     
 

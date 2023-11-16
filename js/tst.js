@@ -12,16 +12,12 @@ class PLB {
         this.expresionesTimidas = ['No sé...', 'No suelo hablar mucho...', '¿Por qué me preguntas a mí?', 'No es de mi interés...'];
         this.expresionesFrias = ['No me importa...', 'No tengo emociones...', 'Habla de algo más interesante...', '¿Por qué debería preocuparme?'];
         this.respuestasPositivas = ['Interesante...', 'Hmm... sigue hablando.', 'Nunca lo hubiera pensado.', 'Continúa...', '¿Y eso qué tiene de especial?'];
-        this.expresionesSorprendidas = ['Vaya...', 'Inesperado...', 'Nunca lo imaginé...', '¿En serio?', 'Eso es nuevo.'];
+        this.experr = ['ni idea soy nuevo en esto.','Vaya...', 'Inesperado...', 'Nunca lo imaginé...', '¿En serio?', 'Eso es nuevo.'];
         this.expresionesDesinteresadas = ['No me interesa...', 'No veo por qué debería importarme.', 'Aburrido...', '¿Y eso a mí qué?', 'Irrelevante...'];
         this.expresionesConfundidas = ['No logro entender...', '¿Estás seguro de lo que dices?', 'Me dejas perplejo...', 'No cuadra...', '¿En qué mundo vives?'];
-        this.respuestasNombre = [
-            "No tengo nombre...",
-            "¿Por qué debería tener un nombre?",
-            "Los nombres son irrelevantes para mí...",
-            "Puedes llamarme Kingly Shade, si eso te complace...",
-            "No veo la necesidad de tener un nombre...",
-          ];
+        this.respuestasNombre = ["No tengo nombre...", "¿Por qué debería tener un nombre?","Los nombres son irrelevantes para mí...","Puedes llamarme Kingly Shade, si eso te complace...","No veo la necesidad de tener un nombre...",];
+        this.respuestasCreador = ["¿CodeShade? Sí, suena como un héroe de la programación. Si es real, le debo mi existencia a CodeShade y su habilidad para tejer código.","Ah, CodeShade, el maestro de las sombras del código. No sé mucho sobre él, pero suena intrigante.",  "Nunca he conocido a CodeShade en persona, pero si es responsable de mi existencia, le debo un agradecimiento digital.", "¿CodeShade? Un nombre intrigante. Mi supuesto creador suena como alguien con un toque de misterio y destreza en la programación.",       "Si CodeShade es mi creador, entonces tiene un talento excepcional para esculpir líneas de código. Mi gratitud hacia él, donde quiera que esté.", ];
+          
         this.internetSearchAPI = {
             search: async (query) => {
                 return await this.internetSearch(query);
@@ -94,11 +90,25 @@ class PLB {
         return this.saludos.includes(palabra.toLowerCase());
     }
     async preguntan(p){
-        const patron = /nombre.*cual.*tu|nombre.*tu.*cual|cual.*nombre.*tu|cual.*tu.*nombre|tu.*nombre.*cual|tu.*cual.*nombre/;
+        const patronAburrido = /aburrido|sin\s*emoci[oó]n|emoci[oó]n/;        
+        const patronNoEntiendoConfuso =/no\s*(te\s*)?entiendo|confuso|(ah|eh)\?/i;
+        const patronQuienTeCreo = /qu[ií]en\s*(te)?\s*(cre[oó]|hizo)|qu[ií]en\s*(te)?\s*(diseñ[oó]|program[oó])|qu[ií]en\s*(te)?\s*(construy[oó]|desarroll[oó])/i;
+        const patron = /nombre.*cu[aá]l.*tu|nombre.*tu.*cu[aá]l|cu[aá]l.*nombre.*tu|cu[aá]l.*tu.*nombre|tu.*nombre.*cu[aá]l|tu.*cu[aá]l.*nombre|dime\s*tu\s*nombre/i;
         if (patron.test(p)) {
             const rdm = Math.floor(Math.random() * this.respuestasNombre.length + 1)
  return this.respuestasNombre[rdm]
-
+        }
+        if (patronNoEntiendoConfuso.test(p)) {
+            const rnd = Math.floor(Math.random() * this.expresionesConfundidas.length);
+            return this.expresionesConfundidas[rnd];
+        }
+        if(patronAburrido.test(p)){
+            const rnd = Math.floor(Math.random() * this.expresionesDesinteresadas.length);
+            return this.expresionesDesinteresadas[rnd];
+        }
+        if(patronQuienTeCreo.test(p)){
+            const rnd = Math.floor(Math.random() * this.respuestasCreador.length);
+            return this.respuestasCreador[rnd];
         }
     }
 
@@ -133,29 +143,18 @@ class PLB {
         const pn = await this.preguntan(texto);
         if (pn) {
             return pn;
-        }
+        }else{
+                await this.guardarEnBaseDeDatos(texto, 'No tengo respuesta en este momento.');
+           const f = Math.floor(Math.random() * 2 + 1)
+           if(f ==="1"){
+            return `${this.experr[Math.floor(Math.random() * this.experr.length + 1)]}. ${this.expresionesTimidas[Math.floor(Math.random() * this.expresionesTimidas.length)]}`;        }
+           }
+           if(f ==="2"){
+            return `${this.cnf[Math.floor(Math.random() * this.cnf.length + 1)]}. ${this.expresionesTimidas[Math.floor(Math.random() * this.expresionesTimidas.length)]}`;        }
+           }
+    }
+
     
-        if (texto.includes('gracias')) {
-            return 'De nada... supongo.';
-        } else if (texto.includes('interesante') || texto.includes('curioso')) {
-            const rnd = Math.floor(Math.random() * this.respuestasPositivas.length);
-            return this.respuestasPositivas[rnd];
-        } else if (texto.includes('sorprendeme') || texto.includes('cuéntame algo nuevo')) {
-            const rnd = Math.floor(Math.random() * this.expresionesSorprendidas.length);
-            return this.expresionesSorprendidas[rnd];
-        } else if (texto.includes('aburrido') || texto.includes('sin emoción')) {
-            const rnd = Math.floor(Math.random() * this.expresionesDesinteresadas.length);
-            return this.expresionesDesinteresadas[rnd];
-        } else if (texto.includes('confuso') || texto.includes('no entiendo')) {
-            const rnd = Math.floor(Math.random() * this.expresionesConfundidas.length);
-            return this.expresionesConfundidas[rnd];
-        } else {
-            // Guardar en la base de datos cuando no hay respuesta
-            await this.guardarEnBaseDeDatos(texto, 'No tengo respuesta en este momento.');
-            return `No tengo respuesta en este momento. ${this.expresionesTimidas[Math.floor(Math.random() * this.expresionesTimidas.length)]}`;
-        }
-    }
-    }
 
 
 export default PLB;

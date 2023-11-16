@@ -1,5 +1,5 @@
 // Importa la clase PLB
-import PLB from './ruta-a-tu-archivo-de-plb';
+import PLB from '../js/tst';
 
 // Crea una instancia de la clase PLB
 const plbInstance = new PLB();

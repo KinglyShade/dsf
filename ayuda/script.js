@@ -1,7 +1,11 @@
 import plb from '../js/tst.js';
 const analizador = new plb();
 document.getElementById('snd').addEventListener('click', function () {
+
     var userInput = document.getElementById('user-input').value;
+    if(!userInput || userInput == ""|| userInput == " " || userInput == undefined){
+return;
+    }
     var chatBox = document.getElementById('chat-box');
     var catImage = document.getElementById('cat-image');
     var messageContainer = document.createElement('div');

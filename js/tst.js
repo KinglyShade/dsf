@@ -17,6 +17,7 @@ class PLB {
         this.expresionesConfundidas = ['No logro entender...', '¿Estás seguro de lo que dices?', 'Me dejas perplejo...', 'No cuadra...', '¿En qué mundo vives?'];
         this.respuestasNombre = ["No tengo nombre...", "¿Por qué debería tener un nombre?","Los nombres son irrelevantes para mí...","Puedes llamarme Kingly Shade, si eso te complace...","No veo la necesidad de tener un nombre...",];
         this.respuestasCreador = ["¿CodeShade? Sí, suena como un héroe de la programación. Si es real, le debo mi existencia a CodeShade y su habilidad para tejer código.","Ah, CodeShade, el maestro de las sombras del código. No sé mucho sobre él, pero suena intrigante.",  "Nunca he conocido a CodeShade en persona, pero si es responsable de mi existencia, le debo un agradecimiento digital.", "¿CodeShade? Un nombre intrigante. Mi supuesto creador suena como alguien con un toque de misterio y destreza en la programación.",       "Si CodeShade es mi creador, entonces tiene un talento excepcional para esculpir líneas de código. Mi gratitud hacia él, donde quiera que esté.", ];
+        this.respuestasCaeBien = ["No es tan terrible tenerte por aquí...","Supongo que tolero tu presencia...","Hmm... no eres completamente insoportable.","No me desagrada del todo tu compañía...", "Es soportable estar contigo...","Podría decirse que no eres la peor opción...","No es el peor día contigo...", "Hmm... no te rechazo por completo...", "No es una experiencia horrible estar contigo...",];
           
         this.internetSearchAPI = {
             search: async (query) => {
@@ -25,7 +26,7 @@ class PLB {
         };
 
         this.initIndexedDB();
-    
+        this.db
     }
 
     initIndexedDB() {
@@ -94,6 +95,8 @@ class PLB {
         const patronNoEntiendoConfuso =/no\s*(te\s*)?entiendo|confuso|(ah|eh)\?/i;
         const patronQuienTeCreo = /qu[ií]en\s*(te)?\s*(cre[oó]|hizo)|qu[ií]en\s*(te)?\s*(diseñ[oó]|program[oó])|qu[ií]en\s*(te)?\s*(construy[oó]|desarroll[oó])/i;
         const patron = /.*tu.*nombre|cu[aá]l.*nombre.*tu|cu[aá]l.*tu.*nombre|tu.*nombre.*cu[aá]l|tu.*cu[aá]l.*nombre|dime\s.*tu\s.*nombre| tiene\s.*[Nn]ombre|[Cc][oó].*te.*llama\s/i;
+        const ma = /me\s*agradas|me\s*caes\s*bien/i;
+
         if (patron.test(p)) {
             const rdm = Math.floor(Math.random() * this.respuestasNombre.length + 1)
  return this.respuestasNombre[rdm]
@@ -109,6 +112,10 @@ class PLB {
         if(patronQuienTeCreo.test(p)){
             const rnd = Math.floor(Math.random() * this.respuestasCreador.length);
             return this.respuestasCreador[rnd];
+        }
+        if(ma.test(p)){
+            const rnd = Math.floor(Math.random() * this.respuestasCaeBien.length);
+            return this.respuestasCaeBien[rnd];
         }
     }
 

@@ -1,5 +1,4 @@
-// Importa la clase PLB
-import PLB from '../js/tst';
+import PLB from '../js/tst.js';
 
 // Crea una instancia de la clase PLB
 const plbInstance = new PLB();
@@ -14,7 +13,8 @@ async function mostrarPreguntasSinRespuesta() {
 
 // Función para obtener todas las preguntas sin respuesta de la base de datos
 async function obtenerPreguntasSinRespuesta() {
-    const transaction = plbInstance.db.transaction(['responses'], 'readonly');
+    const db = plbInstance.db;
+    const transaction = db.transaction(['responses'], 'readwrite');
     const objectStore = transaction.objectStore('responses');
     const todasLasPreguntas = await objectStore.getAllKeys();
 

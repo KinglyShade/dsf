@@ -1,0 +1,19 @@
+{
+  "name": "ia",
+  "version": "0.0.1",
+  "description": "��#\u0000 \u0000a\u0000s\u0000\r\u0000 \u0000#\u0000 \u0000a\u0000s\u0000\r\u0000 \u0000#\u0000 \u0000a\u0000s\u0000\r\u0000 \u0000#\u0000 \u0000d\u0000s\u0000f\u0000\r\u0000 \u0000#\u0000 \u0000d\u0000s\u0000f\u0000\r\u0000 \u0000#\u0000 \u0000d\u0000s\u0000f\u0000\r\u0000 \u0000#\u0000 \u0000d\u0000s\u0000f\u0000\r\u0000 \u0000#\u0000 \u0000d\u0000s\u0000f\u0000\r\u0000 \u0000",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KinglyShade/dsf.git"
+  },
+  "author": "kinglyshade",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KinglyShade/dsf/issues"
+  },
+  "homepage": "https://github.com/KinglyShade/dsf#readme"
+}

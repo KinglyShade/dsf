@@ -1,0 +1,95 @@
+body::before {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Courier New', Courier, monospace;
+    color:aliceblue;
+    background-color: #604c38;
+    overflow-y: visible;
+    min-height: 100vh;
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+#cookie-alert {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    display: none;
+
+}
+.main {
+    width: 95%;
+    max-width: 1200px;
+    /* background-color: #f00; */
+    margin: 25px auto 20px auto;
+}
+
+.main .productosmain {
+    width: 24.4%;
+    /* height: 300px; */
+    background-color: #706d6d83;
+    float: left;
+    margin-left: 5px;
+    margin-top: 5px;
+
+    /* Inicia CSSmatic.com para dar efectos de sombra */
+    -webkit-box-shadow: 1px 1px 4px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 1px 1px 4px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 1px 1px 4px 0px rgba(0, 0, 0, 0.75);
+    /* termina CSSmatic.com */
+
+}
+
+.main .productosmain img {
+    width: 90%;
+    margin-left: 5%;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+.main .limpiar {
+    clear: both;
+}
+
+.main .productosmain .precio {
+    background-color: rgba(102, 204, 255, 0.473);
+    color: #667;
+    font-weight: bold;
+    padding: 5px;
+    text-align: center;
+}
+
+.main .productosmain .precio :hover{
+    background-color: aqua;
+cursor:pointer;
+}
+@media screen and (max-width: 900px) {
+    .main .productosmain {
+        width: 32.4%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .main .productosmain {
+        width: 48.4%;
+    }
+}
+.productosmain p{
+    margin-top: -20px;
+    text-align: center;
+
+}
+

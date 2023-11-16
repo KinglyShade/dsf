@@ -1,8 +1,9 @@
-import plb from '../js/tst.js';
-const analizador = new plb();
+import PLB from '../js/tst.js';
+const analizador = new PLB();
 document.getElementById('snd').addEventListener('click', function () {
 
     var userInput = document.getElementById('user-input').value;
+
     if(!userInput || userInput == ""|| userInput == " " || userInput == undefined){
 return;
     }
@@ -24,7 +25,7 @@ return;
 });
 
 async function a(userInput) {
-    const decision = await analizador.tomarDecision(userInput);
+    const decision = await analizador.tomarDecision(userInput)
     var chatBox = document.getElementById('chat-box');
     var messageContainer = document.createElement('div');
     messageContainer.className = 'message-container';

@@ -9,13 +9,19 @@ class PLB {
         this.saludos = ['hola', 'saludos', 'buenos días', 'buenas tardes', 'buenas noches', '¿cómo estás?', 'hey'];
         this.slr = ['Ah, hola...', 'Saludos...', 'Hola... supongo', 'No me molestes...', 'Estoy aquí, supongo...', 'No esperes que hable mucho...'];
         this.cnf = ['¿Qué se supone que debo decir?', 'Confuso..', 'Hmmm...¿qué?', 'No entiendo..', 'Explícate mejor...', 'No me hagas perder mi tiempo'];
-
-        // Nuevas respuestas y frases
+        this.expresionesTimidas = ['No sé...', 'No suelo hablar mucho...', '¿Por qué me preguntas a mí?', 'No es de mi interés...'];
+        this.expresionesFrias = ['No me importa...', 'No tengo emociones...', 'Habla de algo más interesante...', '¿Por qué debería preocuparme?'];
         this.respuestasPositivas = ['Interesante...', 'Hmm... sigue hablando.', 'Nunca lo hubiera pensado.', 'Continúa...', '¿Y eso qué tiene de especial?'];
         this.expresionesSorprendidas = ['Vaya...', 'Inesperado...', 'Nunca lo imaginé...', '¿En serio?', 'Eso es nuevo.'];
         this.expresionesDesinteresadas = ['No me interesa...', 'No veo por qué debería importarme.', 'Aburrido...', '¿Y eso a mí qué?', 'Irrelevante...'];
         this.expresionesConfundidas = ['No logro entender...', '¿Estás seguro de lo que dices?', 'Me dejas perplejo...', 'No cuadra...', '¿En qué mundo vives?'];
-
+        this.respuestasNombre = [
+            "No tengo nombre...",
+            "¿Por qué debería tener un nombre?",
+            "Los nombres son irrelevantes para mí...",
+            "Puedes llamarme Kingly Shade, si eso te complace...",
+            "No veo la necesidad de tener un nombre...",
+          ];
         this.internetSearchAPI = {
             search: async (query) => {
                 return await this.internetSearch(query);
@@ -87,6 +93,14 @@ class PLB {
     async esSaludo(palabra) {
         return this.saludos.includes(palabra.toLowerCase());
     }
+    async preguntan(p){
+        const patron = /nombre.*cual.*tu|nombre.*tu.*cual|cual.*nombre.*tu|cual.*tu.*nombre|tu.*nombre.*cual|tu.*cual.*nombre/;
+        if (patron.test(p)) {
+            const rdm = Math.floor(Math.random() * this.respuestasNombre.length + 1)
+ return this.respuestasNombre[rdm]
+
+        }
+    }
 
     async internetSearch(query) {
         try {
@@ -105,17 +119,22 @@ class PLB {
 
     async tomarDecision(texto) {
         const saludoEncontrado = await this.esSaludo(texto);
-
+    
         if (saludoEncontrado) {
             const rnd = Math.floor(Math.random() * this.slr.length);
             return this.slr[rnd];
         }
-
+    
         const respuestaEnBaseDeDatos = await this.buscarEnBaseDeDatos(texto);
         if (respuestaEnBaseDeDatos) {
             return respuestaEnBaseDeDatos;
         }
-
+    
+        const pn = await this.preguntan(texto);
+        if (pn) {
+            return pn;
+        }
+    
         if (texto.includes('gracias')) {
             return 'De nada... supongo.';
         } else if (texto.includes('interesante') || texto.includes('curioso')) {
@@ -131,19 +150,11 @@ class PLB {
             const rnd = Math.floor(Math.random() * this.expresionesConfundidas.length);
             return this.expresionesConfundidas[rnd];
         } else {
-            // Respuesta por defecto con búsqueda en Internet
-            const rdm = Math.floor(Math.random() * this.cnf.length);
-            const randomResponse = this.cnf[rdm];
-
-            const internetResult = await this.internetSearch(texto);
-
-            if (internetResult.includes('error')) {
-                return `No me molestes con problemas técnicos. ${this.expresionesTimidas[Math.floor(Math.random() * this.expresionesTimidas.length)]}`;
-            } else {
-                return `${randomResponse} ${this.expresionesFrias[Math.floor(Math.random() * this.expresionesFrias.length)]} ${internetResult}`;
-            }
+            await this.guardarEnBaseDeDatos(texto, 'No tengo respuesta en este momento.');
+            return `No tengo respuesta en este momento. ${this.expresionesTimidas[Math.floor(Math.random() * this.expresionesTimidas.length)]}`;
         }
     }
-}
+    }
+
 
 export default PLB;

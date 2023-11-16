@@ -93,7 +93,7 @@ class PLB {
         const patronAburrido = /aburrido|sin\s*emoci[oó]n|emoci[oó]n/;        
         const patronNoEntiendoConfuso =/no\s*(te\s*)?entiendo|confuso|(ah|eh)\?/i;
         const patronQuienTeCreo = /qu[ií]en\s*(te)?\s*(cre[oó]|hizo)|qu[ií]en\s*(te)?\s*(diseñ[oó]|program[oó])|qu[ií]en\s*(te)?\s*(construy[oó]|desarroll[oó])/i;
-        const patron = /nombre.*cu[aá]l.*tu|nombre.*tu.*cu[aá]l|cu[aá]l.*nombre.*tu|cu[aá]l.*tu.*nombre|tu.*nombre.*cu[aá]l|tu.*cu[aá]l.*nombre|dime\s*tu\s*nombre/i;
+        const patron = /.*tu.*nombre|cu[aá]l.*nombre.*tu|cu[aá]l.*tu.*nombre|tu.*nombre.*cu[aá]l|tu.*cu[aá]l.*nombre|dime\s.*tu\s.*nombre| tiene\s.*[Nn]ombre|[Cc][oó].*te.*llama\s/i;
         if (patron.test(p)) {
             const rdm = Math.floor(Math.random() * this.respuestasNombre.length + 1)
  return this.respuestasNombre[rdm]
@@ -148,11 +148,12 @@ class PLB {
            const f = Math.floor(Math.random() * 2 + 1)
            if(f ==="1"){
             return `${this.experr[Math.floor(Math.random() * this.experr.length + 1)]}. ${this.expresionesTimidas[Math.floor(Math.random() * this.expresionesTimidas.length)]}`;        }
-           }
+           
            if(f ==="2"){
             return `${this.cnf[Math.floor(Math.random() * this.cnf.length + 1)]}. ${this.expresionesTimidas[Math.floor(Math.random() * this.expresionesTimidas.length)]}`;        }
            }
     }
+}
 
     
 

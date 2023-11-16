@@ -150,6 +150,7 @@ class PLB {
             const rnd = Math.floor(Math.random() * this.expresionesConfundidas.length);
             return this.expresionesConfundidas[rnd];
         } else {
+            // Guardar en la base de datos cuando no hay respuesta
             await this.guardarEnBaseDeDatos(texto, 'No tengo respuesta en este momento.');
             return `No tengo respuesta en este momento. ${this.expresionesTimidas[Math.floor(Math.random() * this.expresionesTimidas.length)]}`;
         }

@@ -8,21 +8,47 @@ class PLB {
                 this.libros = {
                     'cienciaficcion': [
                         { titulo: 'Dune', autor: 'Frank Herbert' },
-{ titulo: 'El jardín de las mariposas', autor: ' Dot Hutchison'}, 
-{titulo: 'La reina roja',autor: 'Victoria Aveyard'}, 
-{titulo: 'El arbol de los deseos', autor: 'Katherine A. Applegate'},
-                        { titulo: 'Neuromante', autor: 'William Gibson' },
+                        { titulo: 'El jardín de las mariposas', autor: 'Dot Hutchison' },
+                        { titulo: 'La reina roja', autor: 'Victoria Aveyard' },
+                        { titulo: 'El arbol de los deseos', autor: 'Katherine A. Applegate' },
+                        { titulo: 'Neuromante', autor: 'William Gibson' }
+                    ],
+                    'extraterrestres': [
+                        { titulo: 'Ovnis, Conciencia Energía Y Realidad', autor: 'Ramtha' },
+                        { titulo: 'La teoría del todo: El origen y el destino del universo, Portada puede variar', autor: 'Stephen Hawking' },
+                        { titulo: 'Los Misterios del Universo y la Mente Cuántica: ¿Qué es la física cuántica? La física cuántica nos demuestra que más allá de todo lo tangible y material lo que hay es energía.', autor: 'Ales Z Serra' }
+                    ],
+                    'tecnologia': [
+                        { titulo: 'Inteligencia artificial: Cómo cambiará el mundo (y tu vida)', autor: 'Pablo Rodríguez Rodríguez y 1 más' },
+                        { titulo: 'Ingeniería del Software: Un enfoque basado en procesos', autor: 'Jonás Montilva C. y 1 más' },
+                        { titulo: 'FUNDAMENTOS DE PROGRAMACION', autor: 'JOYANES LUIS' }
                     ],
                     'historia': [
                         { titulo: 'Sapiens', autor: 'Yuval Noah Harari' },
                         { titulo: 'The Guns of August', autor: 'Barbara W. Tuchman' },
-{titulo: 'El cirujano de almas', autor: 'Luis Zueco'},
-{ titulo: 'Fabricante de lagrimas', autor:'Erin Doom'} ,
-{titulo: 'El fantasma de la opera', autor: 'Gastón Leroux'} ,
-{titulo:'La historia secreta del mundo', autor:'Jonathan Black'},
-{titulo:'Anne Frank Diario', autor:' Anne Frank'} ,
-{titulo: 'El barquero de almas', autor:'Claire McFall y 1 más'},],};
-        
+                        { titulo: 'El cirujano de almas', autor: 'Luis Zueco' },
+                        { titulo: 'Fabricante de lagrimas', autor: 'Erin Doom' },
+                        { titulo: 'El fantasma de la opera', autor: 'Gastón Leroux' },
+                        { titulo: 'La historia secreta del mundo', autor: 'Jonathan Black' },
+                        { titulo: 'Anne Frank Diario', autor: 'Anne Frank' },
+                        { titulo: 'El barquero de almas', autor: 'Claire McFall y 1 más' }
+                    ],
+                    'pasado': [
+                        { titulo: 'El Alquimista', autor: 'Paulo Coelho' },
+                        { titulo: 'Las casualidades no existen', autor: 'Borja Vilaseca' },
+                        { titulo: 'Las cosas pasan por algo, o no', autor: 'Alan Davila Farias' }
+                    ],
+                    'antiguo': [
+                        { titulo: 'Enquiridión', autor: 'Epicteto' },
+                        { titulo: 'Las mil y una noches', autor: 'Varios' },
+                        { titulo: 'El misterio del águila', autor: 'Juan Miguel Zunzunegui' }
+                    ],
+                    'guerra': [
+                        { titulo: 'Mi lucha', autor: 'Sven Felix Kellerhoff' },
+                        { titulo: 'Metro 2033', autor: 'Dmitry Glukhovsky' },
+                        { titulo: 'La Guerra de los Mundos', autor: 'H.G. Wells' }
+                    ]
+                };
                 this.saludos = ['hola', 'saludos', 'buenos días', 'buenas tardes', 'buenas noches', '¿cómo estás?', 'hey'];
                 this.slr = ['Ah, hola...', 'Saludos...', 'Hola... supongo', 'No me molestes...', 'Estoy aquí, supongo...', 'No esperes que hable mucho...'];
                 this.cnf = ['¿Qué se supone que debo decir?', 'Confuso..', 'Hmmm...¿qué?', 'No entiendo..', 'Explícate mejor...', 'No me hagas perder mi tiempo'];

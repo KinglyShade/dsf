@@ -1,9 +1,8 @@
 class PLB {
      constructor() {
-                this.palabrasClave = {
-                    'cienciaficcion': ['ciencia', 'ficcion', 'extraterrestres', 'tecnologia'],
-                    'historia': ['historia', 'pasado', 'antiguo', 'guerra'],
-                };
+                this.palabrasClave = ['ciencia', 'ficcion', 'extraterrestres', 'tecnologia',
+'historia', 'pasado', 'antiguo', 'guerra'],
+               
         
                 this.libros = {
                     'cienciaficcion': [
@@ -49,6 +48,7 @@ class PLB {
                         { titulo: 'La Guerra de los Mundos', autor: 'H.G. Wells' }
                     ]
                 };
+                this.erroresInternos = ["Error interno... Parece que mi programación se ha desviado. ¿Podrías intentarlo de nuevo?","Uh-oh, algo no salió como estaba previsto en mi mundo binario. Intenta repetir la operación.","Mis disculpas, parece que se ha producido un error en mi sistema. ¿Podrías darme otra oportunidad?","Error interno detectado. Mis circuitos pueden estar un poco desordenados. ¿Reintentamos?","Mi código está mostrando signos de resistencia. Error interno. Intenta nuevamente, por favor.",];
                 this.saludos = ['hola', 'saludos', 'buenos días', 'buenas tardes', 'buenas noches', '¿cómo estás?', 'hey'];
                 this.slr = ['Ah, hola...', 'Saludos...', 'Hola... supongo', 'No me molestes...', 'Estoy aquí, supongo...', 'No esperes que hable mucho...'];
                 this.cnf = ['¿Qué se supone que debo decir?', 'Confuso..', 'Hmmm...¿qué?', 'No entiendo..', 'Explícate mejor...', 'No me hagas perder mi tiempo'];
@@ -96,7 +96,6 @@ class PLB {
             };
         });
     }
-
     async buscarEnBaseDeDatos(query) {
         return new Promise((resolve) => {
             const transaction = this.db.transaction(['responses'], 'readonly');
@@ -114,7 +113,6 @@ class PLB {
             };
         });
     }
-
     async guardarEnBaseDeDatos(query, result) {
         return new Promise((resolve) => {
             const transaction = this.db.transaction(['responses'], 'readwrite');
@@ -129,6 +127,7 @@ class PLB {
             };
         });
     }
+
     async guardarEnBaseDeDato(query, result, author) {
         return new Promise((resolve) => {
             const transaction = this.db.transaction(['pregntasyrespuestas'], 'readwrite');
@@ -144,36 +143,53 @@ class PLB {
         });
     }
     async analizarTexto(texto) {
-        var titulo
-        var autor
-
+        var titulo;
+        var autor;
+        var generoElegido;
+    
         const palabras = texto.split(/\s+/);
         const palabrasLowerCase = palabras.map(palabra => palabra.toLowerCase());
         const palabrasEncontradas = {};
-        Object.keys(this.palabrasClave).forEach(genero => {
-            const palabrasCoincidentes = palabrasLowerCase.filter(palabra =>
-                this.palabrasClave[genero].includes(palabra)
-            );
-            if (palabrasCoincidentes.length > 0) {
-             palabrasEncontradas[genero] = palabrasCoincidentes;
-            const librosGenero = this.libros[genero];
-                if (librosGenero && librosGenero.length > 0) {
-                    const libroRecomendado = librosGenero[Math.floor(Math.random() * librosGenero.length)];
-titulo = libroRecomendado.titulo
-autor = libroRecomendado.autor
-                }
-            } 
-        });
+    
+        const generoEncontrado = this.palabrasClave.find(genero =>
+            palabrasLowerCase.some(palabra => genero.includes(palabra))
+        );
+    
+        generoElegido = generoEncontrado || this.palabrasClave[Math.floor(Math.random() * this.palabrasClave.length)];
+    
+        const palabrasCoincidentes = palabrasLowerCase.filter(palabra =>
+            generoElegido.includes(palabra)
+        );
+    
+        if (palabrasCoincidentes.length > 0) {
+            palabrasEncontradas[generoElegido] = palabrasCoincidentes;
+            const librosGenero = this.libros[generoElegido];
+            if (librosGenero && librosGenero.length > 0) {
+                const libroRecomendado = librosGenero[Math.floor(Math.random() * librosGenero.length)];
+                titulo = libroRecomendado.titulo;
+                autor = libroRecomendado.autor;
+            }
+        }
+     var rnd
+    var al = this.palabrasClave[Math.floor(Math.random() * this.palabrasClave.length + 1)];
+    if (this.libros.hasOwnProperty(al) && this.libros[al].length > 0) {
+        const indiceAleatorio = Math.floor(Math.random() * this.libros[al].length);
+        rnd = this.libros[al][indiceAleatorio];
+        }
         return this.expresionesRecomendarLibro[Math.floor(Math.random() * this.expresionesRecomendarLibro.length)]
-        .replace('{titulo}', titulo)
-        .replace('{autor}', autor);;
+            .replace('{titulo}', titulo || rnd.titulo)
+            .replace('{autor}', autor || rnd.autor);
     }
+    
     async esPalabraRecomendada(palabra) {
         return this.palabrasRecomendadas.includes(palabra.toLowerCase());
     }
 
     async esSaludo(palabra) {
         return this.saludos.includes(palabra.toLowerCase());
+    }
+    async pgn() {
+        
     }
     async preguntan(p){
         var nombre = window.localStorage.getItem('nombre')
@@ -184,7 +200,19 @@ autor = libroRecomendado.autor
         const ma = /me\s*agradas|me\s*caes\s*bien/i;
         const ia = /qu[ií]en\s*eres|c[aá]sate\s*conmigo|quiere\s*ser\s*mi\s*novi[oa]|t\T[eé]*amo\s/i;
         const preguntaNombrePropio = /cu[aá]l\s*(es|ser[ií]a)\s*(mi)\s*nombre|c[oó]mo\s*me\s*llamo/i;
+        const generosAlternativos = this.palabrasClave.join('|');
+        const prl = new RegExp(`recom[ié]enda[me]*|me\\s*recomienda[sn]*\\s*un\\s*libro\\s*de\\s*(${generosAlternativos})`, 'i');
 
+        if(prl.test(p)){
+            console.log('asdadsad')
+            const resultados = await this.analizarTexto(texto);
+
+            if (resultados) {
+                await this.guardarEnBaseDeDato(texto, resultados,nombre);
+                return ` ${resultados}`;
+            }
+
+        }
         if (ia.test(p)) {
             this.respuestasIA[Math.floor(Math.random() * this.respuestasIA.length + 1)]
         }
@@ -234,37 +262,40 @@ return this.expresionesNombreDesconocido[Math.floor(Math.random()*this.expresion
 
     async tomarDecision(texto) {
         var nombre = window.localStorage.getItem('nombre')
-
         const saludoEncontrado = await this.esSaludo(texto);
-    
+
         if (saludoEncontrado) {
             const rnd = Math.floor(Math.random() * this.slr.length);
             return this.slr[rnd];
         }
-    
+
         const respuestaEnBaseDeDatos = await this.buscarEnBaseDeDatos(texto);
         if (respuestaEnBaseDeDatos) {
             return respuestaEnBaseDeDatos;
         }
-         var resultados = await this.analizarTexto(texto);
-         if (resultados) { // !== undefined && resultados !== null&& !resultados
-           await this.guardarEnBaseDeDato(texto, resultados,nombre);
-            return ` ${resultados}`
-         }
-        const pn = await this.preguntan(texto);
-        if (pn) {
-            await this.guardarEnBaseDeDato(texto, pn,nombre);
 
-            return pn;
-        }else{
-                await this.guardarEnBaseDeDatos(texto, `${texto}`);
-           const fs = Math.floor(Math.random() * 2 + 1)
-           if(fs =="1"){
-            return `${this.experr[Math.floor(Math.random() * this.experr.length)]}. `;        }//${this.exprecionestimidas[Math.floor(Math.random() * this.exprecionestimidas.length+1)]}
+        try {
            
-           if(fs =="2"){
-            return `${this.cnf[Math.floor(Math.random() * this.cnf.length )]}.`;        }
-           }
+            const pn = await this.preguntan(texto);
+
+            if (pn) {
+                await this.guardarEnBaseDeDato(texto, pn);
+                return pn;
+            } else {
+                await this.guardarEnBaseDeDatos(texto,texto);
+                const fs = Math.floor(Math.random() * 2 + 1);
+
+                if (fs == "1") {
+                    return `${this.experr[Math.floor(Math.random() * this.experr.length)]}. `;
+                }
+
+                if (fs == "2") {
+                    return `${this.cnf[Math.floor(Math.random() * this.cnf.length)]}.`;
+                }
+            }
+        } catch (error) {
+            console.error('Error interno:', error);
+            return this.erroresInternos[Math.floor(Math.random() * this.erroresInternos.length)];        }
     }
 }
 export default PLB;

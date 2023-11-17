@@ -7,17 +7,14 @@
     <link rel="stylesheet" href="../Home/style.css">
     <script src="../js/tst.js" type="module"></script>
     <link rel="stylesheet" href="../banners/header/header.css">
-    <title>Libreria GT Ayuda</title>
+    <title>Kingly Shade</title>
+    <link rel="icon" type="image/jpg" href="../img/logos/ks.ico">
 </head>
 <body>
  
-    <div class="custom-alert" id="custom-alert">
-        <span class="close-btn" id="cls">&times;</span>
-        <p>¡Advertencia! Este chat es experimental y no debe tomarse en serio.</p>
-    </div>
     <header class="head">
         <a href="" class="logot">
-          <img src="./../imgs/logos/logo.png" alt="logo">  
+          <img src="../img/logos/aasss.png" alt="logo">  
             <h2 class="text">Libreria GT</h2></a>
             <nav class="navbar">
                 <a href="../Home/index.html" class="">Inicio</a>
@@ -26,17 +23,42 @@
             </nav>
     </header>
 
+    <div class="custom-alert" id="custom-alert">
+        <span class="close-btn" id="cls" onclick="closeAlert()">&times;</span>
+        <p>¡Atención! Este chat es experimental y no debe tomarse en serio.</p>
+    </div>
+    
     <div class="chat-container">
         <div class="chat">
             <div class="header">
-                <img src="../imgs/productos/p1.png">
-                <span class="header-text">Kingly Shade</span>
+                <img src="../img/productos/p1.png">
+                <span class="header-text">Kingly Shade - Alpha 0.2</span>
             </div>
-            <div id="chat-box" class="chat-box"><img class="avat" id="avat"><br></div>
-            <input type="text" id="user-input" class="user-input" placeholder="Escribe tu mensaje...">
-            <button class="send-btn" id="snd">Enviar</button>
+            <div id="chat-box" class="chat-box"><video id="video-background" autoplay muted loop>
+                <source src="../img/cf5d52341c404f25a030667c0df27773.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video></div>
+            <div class="input-container">
+                <input type="text" id="user-input" class="user-input" placeholder="Escribe tu mensaje..." >
+                <button class="send-btn" id="snd">✔</button>
+            </div>
         </div>
     </div>
+
+    <div class="name-prompt" id="name-prompt">
+        <div class="prompt-box">
+            <p>¡Hola! Por favor, ingresa tu nombre:</p>
+            <input type="text" id="user-name-input">
+            <button onclick="saveUserName()">Guardar</button>
+        </div>
+    </div>
+
+    <div class="name-animation" id="name-animation">
+        <p id="user-name-display"></p>
+    </div>
+
+    
+
     <script src="script.js" type="module"></script>
 
 </body>

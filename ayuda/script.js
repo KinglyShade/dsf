@@ -1,44 +1,102 @@
-import plb from '../js/tst.js';
-const analizador = new plb();
-document.getElementById('snd').addEventListener('click', function () {
-    var userInput = document.getElementById('user-input').value;
-    var chatBox = document.getElementById('chat-box');
-    var catImage = document.getElementById('cat-image');
-    var messageContainer = document.createElement('div');
-    messageContainer.className = 'message-container';
-    var avatar = document.createElement('div');
-    avatar.className = 'cat';
-    messageContainer.appendChild(avatar);
-    var messageText = document.createElement('div');
-    messageText.className = 'message-text';
-    messageText.innerText = 'User: ' + userInput;
-    messageContainer.appendChild(messageText);
-    chatBox.appendChild(messageContainer);
-    document.getElementById('user-input').value = '';
+import PLB from '../js/tst.js';
 
-    a(userInput);
-});
+document.addEventListener('DOMContentLoaded', (event) => {
+    const analizador = new PLB();
 
-async function a(userInput) {
-    const decision = await analizador.tomarDecision(userInput);
-    var chatBox = document.getElementById('chat-box');
-    var messageContainer = document.createElement('div');
-    messageContainer.className = 'message-container';
+    // document.getElementById('custom-alert').style.display = 'block';
+
+    window.closeAlert = function() {
+        document.getElementById('custom-alert').style.display = 'none';
+ 
     
-    var avatar = document.getElementById('avat');
-   
+    };
+    var nlc = window.localStorage.getItem('nombre')
+    if(!nlc){
+        showNamePrompt();
+    }
+    function showNamePrompt() {
+        document.getElementById('name-prompt').style.display = 'block';
+    }
 
-    // var randomAvatar = Math.floor(Math.random() * 3) + 1;
-    // avatar.src = `../imgs/avatar/avatar${randomAvatar}.jpg`;
-    var messageText = document.createElement('div');
-    messageText.className = 'message-text';
+    window.saveUserName = function() {
+        var userName = document.getElementById('user-name-input').value.trim();
+        if (userName) {
+            window.localStorage.setItem('nombre', userName)
+            document.getElementById('name-prompt').style.display = 'none';
+            document.getElementById('user-name-display').innerText = `Bienvenido, ${userName}!`;
+            document.getElementById('name-animation').style.display = 'block';
 
-    messageText.innerText = 'KinglyShade:' + decision;
+            document.getElementById('video-background').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('user-name-display').style.display = 'none';
+                document.getElementById('user-name-display').innerText = ``;
+                document.getElementById('name-animation').style.display = 'none';
 
-    messageText.style.backgroundColor = 'rgb(76, 127, 175)';
+                document.getElementById('video-background').style.display = 'none';
+            }, 5000);
+        }
+    };
 
-    messageContainer.appendChild(avatar);
-    messageContainer.appendChild(messageText);
+    document.getElementById('user-input').addEventListener('keypress', function (event) {
+        if (event.key === 'Enter') {
+            sendMessage();
+        }
+    });
 
-    chatBox.appendChild(messageContainer);
-}
+    document.getElementById('snd').addEventListener('click', sendMessage);
+
+    function sendMessage() {
+        var userInput = document.getElementById('user-input').value.trim();
+
+        if (!userInput) {
+            return;
+        }
+
+        var chatBox = document.getElementById('chat-box');
+        var messageContainer = document.createElement('div');
+        messageContainer.className = 'message-container';
+
+        // var avatar = document.getElementById('avat');
+
+        var messageText = document.createElement('div');
+        messageText.className = 'message-text';
+        var nlc = window.localStorage.getItem('nombre')
+        if(!nlc){
+            messageText.innerText = 'Usuario: ' + userInput;
+
+        }else{
+            messageText.innerText = `${nlc}: ` + userInput;
+
+        }
+
+        // messageContainer.appendChild(avatar);
+        messageContainer.appendChild(messageText);
+        chatBox.appendChild(messageContainer);
+
+        document.getElementById('user-input').value = '';
+
+        a(userInput);
+    }
+
+    async function a(userInput) {
+        const decision = await analizador.tomarDecision(userInput);
+        var chatBox = document.getElementById('chat-box');
+        var messageContainer = document.createElement('div');
+        messageContainer.className = 'message-container';
+
+        // var avatar = document.getElementById('avat');
+
+        var messageText = document.createElement('div');
+        messageText.className = 'message-text';
+        messageText.innerText = 'KinglyShade: ' + decision;
+        messageText.style.animation = 'slideInRight 0.5s ease-in-out';
+
+        messageText.style.backgroundColor = 'rgb(76, 127, 175)';
+        setTimeout(() => {
+        // messageContainer.appendChild(avatar);
+        messageContainer.appendChild(messageText);
+
+        chatBox.appendChild(messageContainer);
+        },1000);
+    }
+});

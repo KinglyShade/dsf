@@ -1,21 +1,25 @@
 body {
-    font-family: Arial, sans-serif;
+    background-color: black;
+    color: #fff; /* Cambiar el color del texto a blanco o algún color claro */
+    font-family: 'Arial', sans-serif; /* Cambiar la fuente según tus preferencias */
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
 }
-
-.container {
-    max-width: 800px;
-    margin: 50px auto;
+.division {
+    border-top: 1px solid #ccc;
+    margin-top: 10px;
+    padding-top: 10px;
+}
+header {
+    text-align: center;
     padding: 20px;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #333; /* Cambiar el color de fondo del encabezado */
 }
 
-button {
-    padding: 10px 15px;
-    font-size: 16px;
-    cursor: pointer;
+#historial {
+    border: 1px solid #666; /* Agregar un borde alrededor del historial */
+    padding: 10px;
+    margin: 10px;
+    max-height: 200px; /* Ajustar la altura máxima del historial según sea necesario */
+    overflow-y: auto; /* Agregar una barra de desplazamiento vertical si es necesario */
 }

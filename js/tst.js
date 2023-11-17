@@ -1,5 +1,5 @@
 class PLB {
-    constructor() {
+     constructor() {
                 this.palabrasClave = {
                     'cienciaficcion': ['ciencia', 'ficcion', 'extraterrestres', 'tecnologia'],
                     'historia': ['historia', 'pasado', 'antiguo', 'guerra'],
@@ -8,13 +8,20 @@ class PLB {
                 this.libros = {
                     'cienciaficcion': [
                         { titulo: 'Dune', autor: 'Frank Herbert' },
-                        { titulo: 'Neuromante', autor: 'William Gibson' }
+{ titulo: 'El jardín de las mariposas', autor: ' Dot Hutchison'}, 
+{titulo: 'La reina roja',autor: 'Victoria Aveyard'}, 
+{titulo: 'El arbol de los deseos', autor: 'Katherine A. Applegate'},
+                        { titulo: 'Neuromante', autor: 'William Gibson' },
                     ],
                     'historia': [
                         { titulo: 'Sapiens', autor: 'Yuval Noah Harari' },
-                        { titulo: 'The Guns of August', autor: 'Barbara W. Tuchman' }
-                    ],
-                };
+                        { titulo: 'The Guns of August', autor: 'Barbara W. Tuchman' },
+{titulo: 'El cirujano de almas', autor: 'Luis Zueco'},
+{ titulo: 'Fabricante de lagrimas', autor:'Erin Doom'} ,
+{titulo: 'El fantasma de la opera', autor: 'Gastón Leroux'} ,
+{titulo:'La historia secreta del mundo', autor:'Jonathan Black'},
+{titulo:'Anne Frank Diario', autor:' Anne Frank'} ,
+{titulo: 'El barquero de almas', autor:'Claire McFall y 1 más'},],};
         
                 this.saludos = ['hola', 'saludos', 'buenos días', 'buenas tardes', 'buenas noches', '¿cómo estás?', 'hey'];
                 this.slr = ['Ah, hola...', 'Saludos...', 'Hola... supongo', 'No me molestes...', 'Estoy aquí, supongo...', 'No esperes que hable mucho...'];
@@ -37,7 +44,7 @@ class PLB {
             },
         };
 
-        this.initIndexedDB();
+          this.initIndexedDB();
         this.db
     }
     
@@ -113,6 +120,7 @@ class PLB {
     async analizarTexto(texto) {
         var titulo
         var autor
+
         const palabras = texto.split(/\s+/);
         const palabrasLowerCase = palabras.map(palabra => palabra.toLowerCase());
         const palabrasEncontradas = {};
@@ -213,7 +221,7 @@ return this.expresionesNombreDesconocido[Math.floor(Math.random()*this.expresion
             return respuestaEnBaseDeDatos;
         }
          var resultados = await this.analizarTexto(texto);
-         if (resultados !== undefined && resultados !== null&& !resultados) {
+         if (resultados) { // !== undefined && resultados !== null&& !resultados
            await this.guardarEnBaseDeDato(texto, resultados,nombre);
             return ` ${resultados}`
          }

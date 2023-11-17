@@ -213,9 +213,8 @@ return this.expresionesNombreDesconocido[Math.floor(Math.random()*this.expresion
             return respuestaEnBaseDeDatos;
         }
          var resultados = await this.analizarTexto(texto);
-         if(resultados){
-                    await this.guardarEnBaseDeDato(texto, resultados,nombre);
-
+         if(!resultados || resultados !== undefined){
+           await this.guardarEnBaseDeDato(texto, resultados,nombre);
             return ` ${resultados}`
          }
         const pn = await this.preguntan(texto);

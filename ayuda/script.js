@@ -3,17 +3,17 @@ import PLB from '../js/tst.js';
 document.addEventListener('DOMContentLoaded', (event) => {
     const analizador = new PLB();
 
-    document.getElementById('custom-alert').style.display = 'block';
+    // document.getElementById('custom-alert').style.display = 'block';
 
     window.closeAlert = function() {
         document.getElementById('custom-alert').style.display = 'none';
-        var nlc = window.localStorage.getItem('nombre')
-if(!nlc){
-    showNamePrompt();
-}
+ 
     
     };
-
+    var nlc = window.localStorage.getItem('nombre')
+    if(!nlc){
+        showNamePrompt();
+    }
     function showNamePrompt() {
         document.getElementById('name-prompt').style.display = 'block';
     }

@@ -1,6 +1,16 @@
 import PLB from '../js/tst.js';
 
 document.addEventListener('DOMContentLoaded', (event) => {
+    var id = window.localStorage.getItem('nombre');
+    var imgElement = document.getElementById('img');
+    var imgSrc = `../imgua/uploads/${id}/${id}.jpg`;
+        imageExists(imgSrc, function(exists) {
+        if (exists) {
+            imgElement.src = imgSrc;
+        } else {
+            imgElement.src = '../imgua/uploads/null/null.jpg';
+        }
+    });
     const analizador = new PLB();
 
      document.getElementById('custom-alert').style.display = 'block';
@@ -47,34 +57,42 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     function sendMessage() {
         var userInput = document.getElementById('user-input').value.trim();
-
+    
         if (!userInput) {
             return;
         }
-
+    
         var chatBox = document.getElementById('chat-box');
         var messageContainer = document.createElement('div');
         messageContainer.className = 'message-container';
-
-        // var avatar = document.getElementById('avat');
-
+    
+        var avatar = document.createElement('img');
+        avatar.className = 'avatar';
+        var id = window.localStorage.getItem('nombre');
+        var imgSrc = `../imgua/uploads/${id}/${id}.jpg`;
+            imageExists(imgSrc, function(exists) {
+            if (exists) {
+                avatar.src = imgSrc;
+            } else {
+                avatar.src = '../imgua/uploads/null/null.jpg';
+            }
+        });
+    
         var messageText = document.createElement('div');
         messageText.className = 'message-text';
-        var nlc = window.localStorage.getItem('nombre')
-        if(!nlc){
+        var nlc = window.localStorage.getItem('nombre');
+        if (!nlc) {
             messageText.innerText = 'Usuario: ' + userInput;
-
-        }else{
+        } else {
             messageText.innerText = `${nlc}: ` + userInput;
-
         }
-
-        // messageContainer.appendChild(avatar);
+    
+        messageContainer.appendChild(avatar);
         messageContainer.appendChild(messageText);
         chatBox.appendChild(messageContainer);
-
+    
         document.getElementById('user-input').value = '';
-
+    
         a(userInput);
     }
 
@@ -83,20 +101,41 @@ document.addEventListener('DOMContentLoaded', (event) => {
         var chatBox = document.getElementById('chat-box');
         var messageContainer = document.createElement('div');
         messageContainer.className = 'message-container';
-
-        // var avatar = document.getElementById('avat');
-
+    
+        var avatar = document.createElement('img');
+        avatar.id = 'avats';
+        avatar.className = 'avatar';
+        var randomAvatar = Math.floor(Math.random() * 9 + 1);
+        if (randomAvatar === 8 && Math.random() < 0.001) {
+            randomAvatar = Math.floor(Math.random() * 8) % 7 + 1;
+        }
+        avatar.src = `../img/avatar/avatar${randomAvatar}.png`;
+        
         var messageText = document.createElement('div');
         messageText.className = 'message-text';
         messageText.innerText = 'KinglyShade: ' + decision;
         messageText.style.animation = 'slideInRight 0.5s ease-in-out';
-
+        messageContainer.style.margin = '10px';
         messageText.style.backgroundColor = 'rgb(76, 127, 175)';
-        setTimeout(() => {
-        // messageContainer.appendChild(avatar);
+    
+        messageContainer.appendChild(avatar);
         messageContainer.appendChild(messageText);
-
-        chatBox.appendChild(messageContainer);
-        },1000);
+    
+        setTimeout(() => {
+            avatar.style.display = 'block';
+            chatBox.appendChild(messageContainer);
+        }, 1000);
+    
+      
+    }
+    function imageExists(url, callback) {
+        var img = new Image();
+        img.onload = function() {
+            callback(true);
+        };
+        img.onerror = function() {
+            callback(false);
+        };
+        img.src = url;
     }
 });

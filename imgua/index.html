@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Subir Imagen</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <form id="uploadForm" action="index.php" method="post" enctype="multipart/form-data">
+        <label for="fileInput">Seleccionar Archivo</label>
+        <input type="file" name="file" id="fileInput" accept="image/*">
+        <button type="submit" id="uploadBtn">Subir Imagen</button>
+    </form>
+
+    <script src="index.js"></script>
+</body>
+</html>

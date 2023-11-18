@@ -62,8 +62,10 @@ class PLB {
                 this.respuestasCreador = ["¿CodeShade? Sí, suena como un héroe de la programación. Si es real, le debo mi existencia a CodeShade y su habilidad para tejer código.", "Ah, CodeShade, el maestro de las sombras del código. No sé mucho sobre él, pero suena intrigante.", "Nunca he conocido a CodeShade en persona, pero si es responsable de mi existencia, le debo un agradecimiento digital.", "¿CodeShade? Un nombre intrigante. Mi supuesto creador suena como alguien con un toque de misterio y destreza en la programación.", "Si CodeShade es mi creador, entonces tiene un talento excepcional para esculpir líneas de código. Mi gratitud hacia él, donde quiera que esté."];
                 this.respuestasCaeBien = ["No es tan terrible tenerte por aquí...", "Supongo que tolero tu presencia...", "Hmm... no eres completamente insoportable.", "No me desagrada del todo tu compañía...", "Es soportable estar contigo...", "Podría decirse que no eres la peor opción...", "No es el peor día contigo...", "Hmm... no te rechazo por completo...", "No es una experiencia horrible estar contigo..."];
                 this.respuestasIA = ["Recuerda, soy solo una IA. No esperes que comprenda todas tus complejidades emocionales.", "A veces olvidas que soy solo un conjunto de algoritmos y no tengo emociones como los humanos.", "No te confundas, soy solo una inteligencia artificial. Mi perspectiva es diferente a la tuya.", "¿Qué esperas? Soy una máquina. No tengo simpatía ni antipatía, solo respuestas programadas."];
+                this.respuestasFuncion = ["¿Función? Supongo que estoy aquí para responder preguntas, pero no esperes que sea algo extraordinario.","Mi función es bastante básica. Responder preguntas específicas. Nada del otro mundo.","Pues... mi función principal es estar aquí y proporcionar respuestas. No es como si tuviera grandes aspiraciones.","Diría que fui diseñado para responder preguntas específicas. No hay mucho más que eso en mi lista de tareas.","Mi función se reduce a responder preguntas. No es la tarea más emocionante, pero aquí estoy.","No esperes que te dé una respuesta elaborada. Mi función es bastante simple: responder preguntas y poco más."];
                 this.expresionesNombreDesconocido = ["No estoy completamente seguro de tu nombre. ¿Podrías... recordármelo?","Tu nombre... se me escapa en este momento. ¿Puedes decirme cómo te llamas?","Perdona mi memoria, ¿cómo era tu nombre?","No retuve tu nombre. ¿Puedes recordármelo? No es que sea relevante, pero...",];
                 this.expresionesRecomendarLibro = ["Hmm... tal vez podrías probar con '{titulo}' de {autor}. No es terrible.", "He pensado en '{titulo}' de {autor}. No es la peor opción.", "Si realmente insistes, podrías echarle un vistazo a '{titulo}' de {autor}. No esperes demasiado.","No suelo dar recomendaciones, pero '{titulo}' de {autor} es... aceptable.", "Si te sientes valiente, podrías leer '{titulo}' de {autor}. No digas que no te lo advertí.", ];
+                this.respuestasNombreLibro = ["Hmm... Un libro interesante sería '{titulo}'","No suelo recomendar libros, pero podrías revisar '{titulo}'","Aquí tienes una opción: {titulo} ","No soy crítico literario, pero podrías probar con '{titulo}'","Si insistes, podrías echarle un vistazo a '{titulo}'","No esperes que sea una biblioteca, pero ¿qué opinas de '{titulo}'?"];
         this.internetSearchAPI = {
             search: async (query) => {
                 return await this.internetSearch(query);
@@ -146,7 +148,8 @@ class PLB {
         var titulo;
         var autor;
         var generoElegido;
-    
+        var rnd
+
         const palabras = texto.split(/\s+/);
         const palabrasLowerCase = palabras.map(palabra => palabra.toLowerCase());
         const palabrasEncontradas = {};
@@ -170,7 +173,6 @@ class PLB {
                 autor = libroRecomendado.autor;
             }
         }
-     var rnd
     var al = this.palabrasClave[Math.floor(Math.random() * this.palabrasClave.length + 1)];
     if (this.libros.hasOwnProperty(al) && this.libros[al].length > 0) {
         const indiceAleatorio = Math.floor(Math.random() * this.libros[al].length);
@@ -189,8 +191,17 @@ class PLB {
         return this.saludos.includes(palabra.toLowerCase());
     }
     async pgn() {
-        
-    }
+        var rnd
+        var al = this.palabrasClave[Math.floor(Math.random() * this.palabrasClave.length + 1)];
+        if (this.libros.hasOwnProperty(al) && this.libros[al].length > 0) {
+            const indiceAleatorio = Math.floor(Math.random() * this.libros[al].length);
+            rnd = this.libros[al][indiceAleatorio];
+            }
+            return    this.respuestasNombreLibro[Math.floor(Math.random() *    this.respuestasNombreLibro.length)]
+                .replace('{titulo}',  rnd.titulo)
+        }
+
+    
     async preguntan(p){
         var nombre = window.localStorage.getItem('nombre')
         const patronAburrido = /aburrido|sin\s*emoci[oó]n|emoci[oó]n/;        
@@ -201,20 +212,22 @@ class PLB {
         const ia = /qu[ií]en\s*eres|c[aá]sate\s*conmigo|quiere\s*ser\s*mi\s*novi[oa]|t\T[eé]*amo\s/i;
         const preguntaNombrePropio = /cu[aá]l\s*(es|ser[ií]a)\s*(mi)\s*nombre|c[oó]mo\s*me\s*llamo/i;
         const generosAlternativos = this.palabrasClave.join('|');
+        const patronCualEsTuFuncion = /cu[aá]l\s*(es|ser[ií]a)\s*tu\s*(funci[oó]n|prop[oó]sito)|cu[eé]ntame\s*tu\s*funci[oó]n/i;
         const prl = new RegExp(`recom[ié]enda[me]*|me\\s*recomienda[sn]*\\s*un\\s*libro\\s*de\\s*(${generosAlternativos})`, 'i');
-
+        const patronDimeNombreLibro = /dime\s*el\s*(nombre|t[ií]tulo)\s*de\s*un\s*libro/i;
+        if(patronDimeNombreLibro.test(p)){
+            const resultados = await this.pgn();
+            return resultados
+        }
+        if (patronCualEsTuFuncion.test(p)) {      
+                  return this.respuestasFuncion[Math.floor(Math.random() * this.respuestasFuncion.length)];
+        }
         if(prl.test(p)){
-            console.log('asdadsad')
-            const resultados = await this.analizarTexto(texto);
-
-            if (resultados) {
-                await this.guardarEnBaseDeDato(texto, resultados,nombre);
-                return ` ${resultados}`;
-            }
-
+            const resultados = await this.analizarTexto(p);
+            return resultados
         }
         if (ia.test(p)) {
-            this.respuestasIA[Math.floor(Math.random() * this.respuestasIA.length + 1)]
+            return this.respuestasIA[Math.floor(Math.random() * this.respuestasIA.length + 1)]
         }
         if (patron.test(p)) {
             const rdm = Math.floor(Math.random() * this.respuestasNombre.length)

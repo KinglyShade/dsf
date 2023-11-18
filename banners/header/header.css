@@ -12,6 +12,19 @@ header {
     justify-content: space-between;
     align-items: center;
 }
+.img{
+    margin-right: 10px;
+    height: 40px;
+    position: inherit;
+    top: 15px;
+    transition: transform 0.3s;
+    border-radius: 60px;
+}
+.imgp :hover{
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
 
 .logot img {
     height: 50px;
@@ -36,12 +49,17 @@ header {
 
     color: #f9b16a;
 }
-
+.navbar{
+    position: relative;
+    left: 80px;
+    margin-left: 100px;
+}
 .navbar a {
     position: relative;
     font-size: 16px;
     color: #fff;
     margin-right: 30px;
+    
 }
 
 .navbar a::after {

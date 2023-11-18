@@ -62,3 +62,44 @@ header {
     transform: translateY(0);
     opacity: 1;
 }
+
+#menu-icon {
+    display: none;
+    cursor: pointer;
+    font-size: 24px;
+    margin-right:10px;
+}
+
+@media screen and (max-width: 600px) {
+    .navbar {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background-color: rgba(41, 41, 41, 0.562);
+        border-radius: 4px;
+    }
+
+    .navbar.show {
+        display: flex;
+    }
+
+    .navbar a {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    #menu-icon {
+        display: block;
+    }
+    .logot .text{
+        font-size: 18px; 
+    }
+    .logot img {
+        height: 40px; /* Ajusta el tamaño de la imagen según sea necesario */
+        top: 10px;
+        transition: transform 0.3s;
+    }
+}

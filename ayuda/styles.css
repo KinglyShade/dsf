@@ -49,7 +49,7 @@ body {
     font-size: 16px;
     display: block;
 }
-/*chat */
+
 .chat-container {
     display: flex;
     align-items: flex-end;
@@ -84,6 +84,7 @@ body {
     align-items: center;
     justify-content: space-between;
     padding: 10px;
+height: 40px;
     background: #f0f0f0;
 }
 
@@ -94,7 +95,7 @@ body {
     border-radius: 5px;
     background-color: rgba(255, 255, 255, 0.171);
     color: #1b1919;
-    width: 90%;
+    width: 80%;
 }
 
 .send-btn {
@@ -262,42 +263,30 @@ body {
 }
 
 /* Responsivo */
-@media (min-width: 768px) {
+@media (min-width: 767px) {
     .chat-container {
-        height: 80vh;
+        height: 50%;
         margin-top: 70px;
     }
 
     .chat {
-        width: 70%; 
+        width: 70%;
+        max-width: 600px; /* Ajusta el ancho máximo para pantallas medianas */
     }
 
     .user-input {
-        width: 70%; 
+        width: 70%;
     }
 }
 
 @media (min-width: 1200px) {
     .chat {
-        width: 60%; 
+        width: 60%;
     }
 }
 
 
-@media (max-width: 767px) {
-    .chat-container {
-        height: 100vh;
-        margin-top: 0;
-    }
 
-    .chat {
-        width: 90%;
-    }
-
-    .user-input {
-        width: 90%;
-    }
-}
 /* Animaciónes keyframes */
 @keyframes slideInRight {
     from {
